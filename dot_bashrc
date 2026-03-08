@@ -1,0 +1,112 @@
+# --- 1. ENV CONFIGURATION ---
+unset LD_PRELOAD
+
+# --- 2. LOAD EXTERNAL ALIASES ---
+if [ -f ~/.grun_aliases ]; then
+    . ~/.grun_aliases
+fi
+
+# --- 3. CORE FUNCTION: grun-set ---
+grun-set() {
+    local target_cmd=$1
+    if [ -z "$target_cmd" ]; then
+        echo "Usage: grun-set <command_name>"
+        return 1
+    fi
+
+    # Check if already patched to avoid duplicates
+    if grep -q "${target_cmd}()" ~/.grun_aliases 2>/dev/null; then
+        echo "Warning: Command '$target_cmd' is already patched in ~/.grun_aliases."
+        echo "Use 'grun-unset $target_cmd' first if you want to re-patch."
+        return 1
+    fi
+
+    # Get the real binary path using which (ignoring functions/aliases)
+    local real_path=$(which -a "$target_cmd" | grep -v "function" | head -n 1)
+
+    if [ -z "$real_path" ]; then
+        echo "Error: Binary for '$target_cmd' not found."
+        return 1
+    fi
+
+    # Append to alias file: grun + path + all arguments
+    cat << INNER_EOF >> ~/.grun_aliases
+$target_cmd() {
+    grun "$real_path" "\$@"
+}
+INNER_EOF
+
+    # Apply immediately
+    source ~/.grun_aliases
+    echo "Success: '$target_cmd' is now patched to $real_path"
+}
+
+# --- 4. CORE FUNCTION: grun-unset ---
+grun-unset() {
+    local target_cmd=$1
+    if [ -z "$target_cmd" ]; then
+        echo "Usage: grun-unset <command_name>"
+        return 1
+    fi
+
+    if [ -f ~/.grun_aliases ]; then
+        # Remove the function block from the file
+        sed -i "/$target_cmd() {/,/}/d" ~/.grun_aliases
+        # Remove from current session
+        unset -f "$target_cmd"
+        echo "Success: Patch for '$target_cmd' removed."
+        source ~/.bashrc
+    fi
+}
+
+# --- 5. UTILITY: grun-list ---
+grun-list() {
+    if [ -s ~/.grun_aliases ]; then
+        echo "Patched commands:"
+        grep "()" ~/.grun_aliases | sed 's/() {//g'
+    else
+        echo "No patches found."
+    fi
+}
+export JAVA_HOME=/data/data/com.termux/files/usr/opt/openjdk-17
+export PATH=$PATH:$JAVA_HOME/bin
+export PATH=$PATH:/data/data/com.termux/files/usr/opt/android-studio/bin
+
+# ==== Flutter ====
+export FLUTTER_ROOT=$PREFIX/opt/flutter
+export PATH=$FLUTTER_ROOT/bin:$PATH
+
+# ==== Android SDK ====
+export ANDROID_HOME=$PREFIX/opt/android-sdk
+export ANDROID_SDK_ROOT=$ANDROID_HOME
+export PATH=$ANDROID_HOME/platform-tools:$PATH
+export PATH=$ANDROID_HOME/cmdline-tools/latest/bin:$PATH
+
+# ==== NDK & CMake ====
+export ANDROID_NDK_HOME=$ANDROID_HOME/ndk/29.0.14206865
+export CMAKE_HOME=$ANDROID_HOME/cmake/4.1.2/bin
+export PATH=$CMAKE_HOME:$PATH
+
+# ==== lsp-ws-proxy ====
+export LSP_WS_PROXY="/data/data/com.termux/files/home/Flutter_studio_setup/lsp-ws-proxy"
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+export JAVA_HOME="$PREFIX/lib/jvm/java-17-openjdk"
+export ANDROID_SDK_ROOT="$HOME/Android/Sdk"
+export ANDROID_HOME="$ANDROID_SDK_ROOT"
+export ANDROID_NDK_HOME="$HOME/Android/Sdk/ndk/android-ndk-r29"
+export ANDROID_NDK_TOOLCHAINS="$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-aarch64"
+export PATH="$JAVA_HOME/bin:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$ANDROID_SDK_ROOT/platform-tools:$ANDROID_NDK_HOME:$ANDROID_NDK_TOOLCHAINS/bin:$PATH"
+export JAVA_HOME="$PREFIX/lib/jvm/java-17-openjdk"
+export ANDROID_SDK_ROOT="$HOME/Android/Sdk"
+export ANDROID_HOME="$ANDROID_SDK_ROOT"
+export ANDROID_NDK_HOME="$HOME/Android/Sdk/ndk/android-ndk-r29"
+export ANDROID_NDK_TOOLCHAINS="$ANDROID_NDK_HOME/toolchains/llvm/prebuilt/linux-aarch64"
+export PATH="$JAVA_HOME/bin:$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$ANDROID_SDK_ROOT/platform-tools:$ANDROID_NDK_HOME:$ANDROID_NDK_TOOLCHAINS/bin:$PATH"
+export EDITOR=nano
+
+# termux-fixer aliases
+alias ll='ls -la'
+alias update='pkg update -y && pkg upgrade -y'
