@@ -21,8 +21,8 @@ nvim
 Option B — try without replacing your current config:
 
 ```sh
-git clone https://github.com/GeneralKaos666/nvim-config ~/.config/GeneralKaos666/nvim-config
-NVIM_APPNAME=GeneralKaos666/nvim-config/nvim nvim
+git clone https://github.com/GeneralKaos666/nvim-config ~/.config/nvim-cloned
+NVIM_APPNAME=nvim-cloned/nvim nvim
 ```
 
 On first start `nvim/init.lua` clones `galaxyvim` into `stdpath("data") .. "/galaxyvim"`, prepends it to `rtp`, and loads `require("galaxy")`.
