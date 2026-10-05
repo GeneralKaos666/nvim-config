@@ -1,0 +1,9 @@
+# lazy.nvim installs
+site/
+data/
+state/
+cache/
+*.shada
+*.swp
+*.swo
+.netrwhist
