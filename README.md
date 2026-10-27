@@ -14,7 +14,7 @@ A config file under the pastel theme:
 
 ## Requirements
 
-- Neovim 0.11+ (tested on 0.12.5)
+- Neovim 0.11+ (tested on 0.12.6)
 - Nerd Font (recommended)
 - `git`, `rg`, `node`, `npm`
 
