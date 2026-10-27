@@ -2,6 +2,16 @@
 
 Galaxyvim-based Neovim config. The live config lives in `nvim/` in this repo (mirrored from `~/.config/nvim`).
 
+## Screenshots
+
+Startup dashboard (alpha):
+
+![Startup dashboard](screenshots/nvim-dashboard.png)
+
+A config file under the pastel theme:
+
+![settings.lua](screenshots/nvim-settings-lua.png)
+
 ## Requirements
 
 - Neovim 0.11+ (tested on 0.12.5)
