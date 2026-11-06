@@ -1,9 +1,4 @@
-local diagnostics_provider
-if nvim.opt.provider.lsp == "nvim" then
-  diagnostics_provider = "nvim_diagnostic"
-elseif nvim.opt.provider.lsp == "coc" then
-  diagnostics_provider = "coc"
-end
+local diagnostics_provider = "nvim_diagnostic"
 
 return {
   "diagnostics",

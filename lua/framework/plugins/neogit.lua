@@ -33,8 +33,8 @@ M.config = function()
       },
       integrations = {
         diffview = true,
-        telescope = nvim.opt.provider.picker == "telescope",
-        snacks = nvim.opt.provider.picker == "snacks",
+        telescope = true,
+        snacks = false,
       },
     },
     config = true,

@@ -3,7 +3,7 @@ local M = {}
 M.config = function()
   return {
     "mason-org/mason.nvim",
-    enabled = nvim.opt.provider.lsp == "nvim",
+    enabled = true,
     name = "mason",
     main = "mason",
     event = "User UIReady",

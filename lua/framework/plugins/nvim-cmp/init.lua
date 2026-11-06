@@ -103,7 +103,7 @@ M.config = function()
         },
       },
     },
-    enabled = nvim.opt.provider.lsp == "nvim" and nvim.opt.provider.cmp == "nvim-cmp",
+    enabled = true,
     config = true,
     preload = preload, -- preload automatically merge returned values with opts
     afterload = function(_, opts) -- run after plugin setup

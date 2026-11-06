@@ -3,7 +3,6 @@ return {
   ["alpha"] = true,
 
   -------- Themes
-  ["pastel"] = true,
 
   -------- Tabline / Statusline
   ["bufferline"] = true,
@@ -38,7 +37,6 @@ return {
   ["multicursor"] = true,
 
   -------- LSP Utilities
-  ["coc"] = true,
   ["mason"] = true,
   ["navic"] = true,
   ["neogen"] = true,
@@ -57,7 +55,6 @@ return {
 
   -------- Completion
   ["nvim-cmp"] = true,
-  ["blink-cmp"] = true,
   ["autopairs"] = true,
   ["luasnip"] = true,
   ["lspkind"] = true,

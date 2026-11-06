@@ -34,7 +34,7 @@ M.config = function()
     enable_abbr = false,
     ---@usage switch for basic rule break undo sequence
     break_undo = true,
-    map_cr = nvim.opt.provider.lsp == "nvim" and true or false,
+    map_cr = true,
     ---@usage map the <BS> key
     map_bs = true,
     ---@usage map <c-w> to delete a pair if possible

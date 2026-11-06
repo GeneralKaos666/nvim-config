@@ -4,7 +4,7 @@ function _G.bufferline_nvim_quit()
   vim.cmd "qall"
 end
 
-local diagnostics_provider = nvim.opt.provider.lsp == "nvim" and "nvim_lsp" or "coc"
+local diagnostics_provider = "nvim_lsp"
 
 local function is_ft(b, ft)
   return vim.bo[b].filetype == ft
@@ -166,7 +166,7 @@ M.config = function()
         truncate_names = true, -- whether or not tab names should be truncated
         tab_size = 18,
 
-        diagnostics = diagnostics_provider, -- "nvim_lsp" | "coc"
+        diagnostics = diagnostics_provider, -- "nvim_lsp"
         diagnostics_update_in_insert = false,
         diagnostics_indicator = diagnostics_indicator,
 

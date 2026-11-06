@@ -15,7 +15,7 @@ return function(main, style)
       { "f", "󰈞" .. "  Find File", "<CMD>Telescope find_files<CR>" },
       { "g", "" .. "  Find Text", "<CMD>lua nvim.open.picker('live_grep')<CR>" },
       { "r", "󰈢" .. "  Recent Files", "<CMD>lua nvim.open.picker('oldfiles') <CR>" },
-      { "m", "󰃅" .. "  Bookmarks", nvim.load("framework.plugins." .. nvim.opt.provider.picker .. ".pickers.bookmarks") },
+      { "m", "󰃅" .. "  Bookmarks", nvim.load("framework.plugins.telescope.pickers.bookmarks") },
       { "t", "" .. "  Terminal", "<CMD>Term<CR>" },
       { "s", "󰙰" .. "  Last Session", "<CMD>lua nvim.require('session_manager').load_last_session()<CR>" },
       { "c", "" .. "  Configuration", "<CMD>edit " .. nvim.stdpath.config .. "/configs.lua" .. " <CR>" },

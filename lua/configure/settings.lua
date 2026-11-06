@@ -58,12 +58,6 @@ nvim.opt.style = {
 
 -------------------------▶ Providers ◀-------------------------------
 
-nvim.opt.provider = {
-  picker = "telescope",      -- telescope | snacks
-  cmp = "nvim-cmp",          -- nvim-cmp | blink-cmp
-  lsp = "nvim",              -- nvim | coc
-}
-
 ----------------------------▶ LSP ◀-------------------------------
 
 nvim.opt.lsp = {

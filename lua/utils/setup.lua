@@ -63,16 +63,8 @@ function M.plugin(name, plugin, cond)
 end
 
 function M.lsp()
-  local provider = nvim.opt.provider.lsp
-
-  if provider == "nvim" then
-    if nvim.lsp then
-      nvim.lsp.setup()
-    end
-  elseif provider == "coc" then
-    if nvim.coc then
-      nvim.coc.setup()
-    end
+  if nvim.lsp then
+    nvim.lsp.setup()
   end
 end
 

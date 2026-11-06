@@ -35,7 +35,7 @@ local key = "<leader>l"
 wk.map = {
 
   key,
-  cond = nvim.opt.provider.lsp == "nvim" and nvim.plugins.lspconfig.enabled,
+  cond = nvim.plugins.lspconfig.enabled,
   icon = wk.icon { "󰆧", "purple" },
   group = "LSP",
   -- code actions
