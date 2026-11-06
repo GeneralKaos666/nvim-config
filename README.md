@@ -1,6 +1,7 @@
 # nvim-config
 
-Galaxyvim-based Neovim config. The live config lives in `nvim/` in this repo (mirrored from `~/.config/nvim`).
+Personal Neovim configuration: a flat, self-contained Lua tree with no runtime
+clone or remote framework fetch.
 
 ## Screenshots
 
@@ -14,51 +15,47 @@ A config file under the pastel theme:
 
 ## Requirements
 
-- Neovim 0.11+ (tested on 0.12.6)
-- Nerd Font (recommended)
-- `git`, `rg`, `node`, `npm`
+- Neovim 0.11+ (latest stable recommended)
+- A Nerd Font
+- `git`, `rg`, `node`, `npm`, `make`, and a C compiler
 
-## Install
+## Installation
 
-Option A — use as your main config (run from repo root):
-
-```sh
-mv ~/.config/nvim ~/.config/nvim.backup
-cp -r nvim ~/.config/nvim
+```bash
+git clone https://github.com/GeneralKaos666/nvim-config.git ~/.config/nvim
 nvim
 ```
 
-Option B — try without replacing your current config:
-
-```sh
-git clone https://github.com/GeneralKaos666/nvim-config ~/.config/nvim-cloned
-NVIM_APPNAME=nvim-cloned/nvim nvim
-```
-
-On first start `nvim/init.lua` clones `galaxyvim` into `stdpath("data") .. "/galaxyvim"`, prepends it to `rtp`, and loads `require("galaxy")`.
+lazy.nvim bootstraps itself on first launch and installs the pinned plugins from
+`lockfile.json`.
 
 ## Layout
 
-```text
-nvim/
-├── init.lua                  # bootstraps galaxyvim, loads galaxy module
-├── .gitignore                # excludes lazy installs, shada, swap
-├── LICENSE                   # GPLv3
-├── lockfile.json              # 79 pinned plugins
-├── dictionary/words           # spell word list
-├── snippets/                  # luasnip + snipmate + vscode snippets
-└── lua/
-    ├── galaxy/                # framework: bootstrap, configure, behaviors,
-    │                          # mappings/whichkey, lspconfig, plugins/*,
-    │                          # utils, lazy/
-    └── plugins/               # local extras: avante, mcphub, silkcircuit,
-                               # tether (+ init)
+```
+init.lua                entry point; treesitter runtime append + require("core")
+lua/core.lua            helper table, version checks, module loader
+lua/bootstrap.lua       lazy.nvim setup and post-load hooks
+lua/lazyconf/           lazy.nvim configuration
+lua/behaviors/          autocmds and user commands
+lua/configure/          options, settings, plugin enable table
+lua/mappings/           keymaps (which-key groups)
+lua/utils/              shared helpers
+lua/lsp/                LSP setup (nvim and coc providers)
+lua/framework/plugins/  plugin factory modules, expanded by the builder
+lua/plugins/            user standalone specs plus the factory builder
 ```
 
-`nvim/lua/galaxy/lazy/lockfile.json` is the framework lockfile; `nvim/lockfile.json` is the active pin set.
+Framework plugin factories are plain modules that return `M` with an
+`M.config()` function. `lua/plugins/init.lua` expands them into lazy.nvim specs.
+Add your own plugins as standalone files under `lua/plugins/`.
 
-## Notes
+Useful commands:
 
-- No README inside `nvim/` (upstream starter readme omitted; its install steps don't apply here).
-- Excluded from the repo: `.git/`, `.superpowers/`, `docs/superpowers/`.
-- Review code before installing a config you cloned.
+- `:About` shows version, paths, and plugin stats.
+- `:EditConf <target>` opens core config files.
+- `<leader>k` opens the config/mapping menu.
+
+## Credits
+
+Framework code derived from [galaxyvim](https://github.com/galaxyvim/galaxyvim),
+GPL-3.0.
