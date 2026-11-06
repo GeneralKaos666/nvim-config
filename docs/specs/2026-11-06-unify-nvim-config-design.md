@@ -6,11 +6,11 @@
 
 ## Goal
 
-Remove every dormant alternative and duplicated helper from the flattened
-config, then collapse the remaining directory tree one level so no module or
-plugin has two competing definitions. End state: one completion engine, one LSP
-provider, one colorscheme, one `lazytable`, and a directory layout where each
-thing lives in exactly one place.
+Remove every dormant alternative from the flattened config, then collapse the
+remaining directory tree one level so no module or plugin has two competing
+definitions. End state: one completion engine, one LSP provider, one
+colorscheme, and a directory layout where each thing lives in exactly one place
+with no misleadingly duplicated helper names.
 
 ## Non-goals
 
@@ -33,7 +33,11 @@ carries alternatives that are now dead code behind a `provider` switch:
   `nvim.opt.provider.lsp == "coc"`).
 - Colorscheme: `silkcircuit` (active) vs `pastel` factory (still enabled in
   `configure/plugins.lua`, unused).
-- Helper: `lazytable` defined in both `utils/init.lua` and `utils/open.lua`.
+- Helper naming: `lazytable` is defined in both `utils/init.lua` and
+  `utils/open.lua`. They are unrelated functions that happen to share a name;
+  `utils/init.lua` builds recursive proxy tables, `utils/open.lua`'s returns a
+  missing key as its own name for picker fallback. The overlap is the name, not
+  the behavior, so one is renamed.
 
 ## Decisions
 
@@ -83,14 +87,19 @@ from `lua/configure/settings.lua`.
   - `lua/framework/plugins/nvim-cmp/init.lua`: `enabled = true` (drop the
     `provider.lsp == "nvim" and provider.cmp == "nvim-cmp"` guard).
 - **Picker = telescope:**
-  - `lua/utils/open.lua`: hardcode the `telescope` case.
+  - `lua/utils/open.lua`: hardcode the `telescope` case; delete the `snacks`
+    branch, the `pickers.snacks` table, and the `opts` table (now unused).
   - `lua/framework/plugins/alpha/styles/dashboard.lua`: bookmarks module is
     `factories.telescope.pickers.bookmarks`.
   - `lua/mappings/whichkey/bookmark.lua`: same hardcoded telescope module.
   - `lua/framework/plugins/neogit.lua`: `telescope = true`, `snacks = false`.
+  - `lua/mappings/whichkey/lsp.lua`: drop the `provider.lsp == "nvim"` half of
+    its `cond`, leaving `nvim.plugins.lspconfig.enabled`.
 
 `silkcircuit` stays the colorscheme; `nvim.colorscheme = "silkcircuit"` is
-unchanged.
+unchanged. Remove the now-dead pastel branch in
+`lua/framework/plugins/indent-blankline.lua` (the `if not
+vim.startswith(vim.g.colors_name, "pastel")` guard becomes unconditional).
 
 ### 3.3 Flatten the directories
 
@@ -124,10 +133,12 @@ unchanged.
 - `lua/lsp/nvim/init.lua` (now `lua/lsp/init.lua`) and friends:
   `lsp.nvim.provider/progress/inlayhint` → `lsp.provider/progress/inlayhint`.
 
-### 3.5 Deduplicate helpers
+### 3.5 Remove the misleading helper name
 
-- `lua/utils/open.lua` deletes its local `lazytable` and uses `nvim.lazytable`
-  (already available from `utils/init.lua`, merged into `nvim`).
+- `lua/utils/open.lua`: rename its local `lazytable` (the key-passthrough
+  proxy) to `keyproxy`, and update the two call sites in the same file. Do not
+  replace it with `utils/init.lua`'s `lazytable` — the two behave differently
+  and are not interchangeable.
 
 ## Resulting tree
 
