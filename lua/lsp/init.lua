@@ -231,6 +231,11 @@ lsp.defaults = {
 
 ---------------------------[ Setup ]-------------------------------
 M.setup = function()
+  local keys = { "gaa", "gal", "gan", "gaw", "grn", "gra", "grr", "grt", "gri", "grd", "grx" }
+  for _, k in ipairs(keys) do
+    pcall(vim.keymap.del, "n", k)
+  end
+
   if not nvim.plugins.lspconfig.enabled then
     return
   end
@@ -305,5 +310,7 @@ M.setup = function()
     end,
   })
 end
+
+nvim.lsp = M
 
 return M
