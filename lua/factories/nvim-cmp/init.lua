@@ -3,7 +3,7 @@ local M = {}
 local function preload()
   local cmp = nvim.require "cmp"
   local ok, luasnip = pcall(nvim.require, "luasnip")
-  local config = nvim.autoload "framework/plugins/nvim-cmp"
+  local config = nvim.autoload "factories/nvim-cmp"
 
   local snippet = ok and {
     expand = function(args)
@@ -91,7 +91,7 @@ M.config = function()
   return {
     "hrsh7th/nvim-cmp",
     event = { "InsertEnter", "CmdlineEnter" },
-    dependencies = nvim.load "framework.plugins.nvim-cmp.dependencies",
+    dependencies = nvim.load "factories.nvim-cmp.dependencies",
     opts = {
       experimental = { ghost_text = false },
       window = {

@@ -1,4 +1,4 @@
--- Framework plugin factories live under `lua/framework/plugins/` and are
+-- Framework plugin factories live under `lua/factories/` and are
 -- expanded here through `lua/configure/plugins.lua`. User specs are
 -- standalone files in this directory; add `lua/plugins/<name>.lua`.
 local enabled = require("configure.plugins")
@@ -9,7 +9,7 @@ nvim.dofile(nvim.fs.presets)
 
 local plugins = {}
 for name, cond in pairs(enabled) do
-  local module = "framework.plugins." .. name
+  local module = "factories." .. name
   local ok, plugin = pcall(require, module)
   local plugname = name:gsub("-", "_")
   if ok then

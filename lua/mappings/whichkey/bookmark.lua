@@ -12,7 +12,7 @@ wk.map = {
 
   {
     key .. "a",
-    nvim.load("framework.plugins.telescope.pickers.bookmarks"),
+    nvim.load("factories.telescope.pickers.bookmarks"),
     desc = "Bookmarks",
   },
 

@@ -1,4 +1,4 @@
-local components = nvim.autoload "framework/plugins/lualine/components"
+local components = nvim.autoload "factories/lualine/components"
 
 local M = {}
 

@@ -24,7 +24,7 @@ local main = {
   setButtons = setButtons,
 }
 
-local styles = nvim.autoload("framework/plugins/alpha/styles")
+local styles = nvim.autoload("factories/alpha/styles")
 
 M.config = function()
   return {

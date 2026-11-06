@@ -130,7 +130,7 @@ M.config = function()
       end
 
       dap.set_log_level(opts.log.level)
-      nvim.autoload "framework/plugins/nvim-dap/adapters"
+      nvim.autoload "factories/nvim-dap/adapters"
     end,
   }
 end

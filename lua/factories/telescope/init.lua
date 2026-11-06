@@ -23,7 +23,7 @@ local focus_preview = function(prompt_bufnr)
   end, { buffer = bufnr })
 end
 
-local sources = nvim.load "framework.plugins.telescope.sources"
+local sources = nvim.load "factories.telescope.sources"
 
 local preload = function()
   local telescope = nvim.require "telescope"
