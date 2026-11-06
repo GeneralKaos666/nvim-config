@@ -94,7 +94,7 @@ wk.map = {
 
       { key .. "tu+", icon = "󰖨", "<cmd>lua nvim.ui.transparency.ui_inc()<cr>", desc = "Increase UI" },
       { key .. "tu-", icon = "", "<cmd>lua nvim.ui.transparency.ui_dec()<cr>", desc = "Decrease UI" },
-      { key .. "tu0", icon = "󱦥", "<cmd>lua nvim.ui.ui_reset()<cr>", desc = "Reset UI" },
+      { key .. "tu0", icon = "󱦥", "<cmd>lua nvim.ui.transparency.ui_reset()<cr>", desc = "Reset UI" },
     },
   },
 }

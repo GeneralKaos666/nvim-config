@@ -27,7 +27,7 @@ wk.map = {
   {
     mode = { "n", "x" },
     key .. "c",
-    nvim.toggle.smartcase,
+    nvim.ui.smartcase,
     desc = "Smartcase",
     icon = wk.icon { "󰉿", "blue" },
   },
