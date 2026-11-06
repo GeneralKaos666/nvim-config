@@ -17,9 +17,9 @@ nvim.opt.auto = {
 nvim.colorscheme = "pastel" -- list all colorscheme using <leader>uc
 
 nvim.opt.transparency = {
-  ui = 0,     -- background
-  float = 0,  -- float window
-  popup = 10, -- popup menu
+  ui = 25,     -- background
+  float = 25,  -- float window
+  popup = 25, -- popup menu
 }
 
 nvim.opt.cursor = {
