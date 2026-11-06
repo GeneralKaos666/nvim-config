@@ -2,7 +2,11 @@ return function(main, style)
   local header, buttons, footer
 
   header = {
-    val = nil,
+    val = {
+      "  ╭──────────────────────────╮",
+      "  │        Kaos666           │",
+      "  ╰──────────────────────────╯",
+    },
   }
 
   buttons = {
