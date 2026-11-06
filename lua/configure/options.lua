@@ -6,6 +6,7 @@ vim.opt.hidden = true -- allow switching buffers without saving
 vim.opt.more = false -- disable pagination for long outputs (more)
 vim.opt.clipboard = "unnamedplus" -- use system clipboard
 vim.opt.mouse = "a" -- enable mouse/touch support
+vim.opt.termguicolors = true -- truecolor from the first redraw
 
 ------------------------- [ files ] -------------------------------
 vim.opt.encoding = "utf-8" -- default encoding

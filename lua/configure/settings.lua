@@ -14,7 +14,7 @@ nvim.opt.auto = {
 
 ----------------------------▶ UI ◀-------------------------------
 
-nvim.colorscheme = "pastel" -- list all colorscheme using <leader>uc
+nvim.colorscheme = "silkcircuit" -- list all colorscheme using <leader>uc
 
 nvim.opt.transparency = {
   ui = 25,     -- background
